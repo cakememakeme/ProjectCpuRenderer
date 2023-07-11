@@ -1,0 +1,142 @@
+@startuml
+
+interface IRenderer <<interface>>
+{
+    +bool SetObject(vector<Object> objects)
+    +void Update()
+    +void Render()
+}
+class CpuRenderer
+{
+    -vector<Object> objects
+    +void Update()
+    +void Render()
+    -DisplayBuffer renderViaCpu()
+}
+class OtherRenderers <<todo>>
+{
+}
+
+class CpuRenderPipeline
+{
+    +void DrawMeshes()
+}
+
+class CpuRasterizer <<static>>
+{
+    +void DrawTriangle()
+}
+
+class Application
+{
+    -bool CreateRenderer()
+    +int Run()
+}
+
+class Object
+{
+    +Transformation transform
+}
+
+class Mesh
+{
+    +vector<Vertex> vertices
+    +Material material
+}
+
+class Material
+{
+    vec3 ambient
+    vec3 specular
+    float shininess
+    +Texture texture
+}
+
+class Light
+{
+    +vec3 strength
+    +vec3 dir
+    +vec3 position
+}
+
+struct Vertex
+{
+    +vec3 position
+    +vec3 normal
+    +vec2 uv
+}
+
+struct Transformation
+{
+    vec3 translation
+    vec3 scale
+    float rotateX
+    float rotateY
+    float rotateZ
+}
+
+class GeometryGenerator
+{
+    +vector<Mesh> ReadFromFile(string filename)
+}
+
+class MeshLoader
+{
+    +void Load(string filename)
+}
+
+class TextureLoader
+{
+    +void Load(string filename)
+}
+
+class Texture
+{
+    -vector<uint8> image
+}
+
+class CpuShader.h_file
+{
+    +DisplayBuffer buffer 
+    +void VertexShader()
+    +void PixelShader()
+}
+hide CpuShader.h_file circle
+
+Application ..> GeometryGenerator
+
+GeometryGenerator ..> MeshLoader
+
+MeshLoader ..> TextureLoader
+
+Mesh --> Material
+Mesh --> Vertex : <<List>>
+
+IRenderer <|.. CpuRenderer
+IRenderer <|.. OtherRenderers
+
+CpuRenderer *--> CpuRenderPipeline
+
+'CpuRenderer --> Object
+
+Object <|-- Mesh
+
+Object <|-- Light
+
+'Object --> Transformation
+
+Object <-- CpuRenderer : <<List>>
+
+Transformation <-right- Object
+
+CpuRenderPipeline ..> CpuRasterizer
+
+Application *--> IRenderer
+
+CpuRasterizer ..> CpuShader.h_file : PixelShader
+
+CpuRenderPipeline ..> CpuShader.h_file : VertexShader
+
+Material --> Texture
+
+@enduml
