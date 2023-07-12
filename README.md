@@ -5,6 +5,7 @@
 
 개괄적인 클래스 구성도는 다음과 같습니다
 ![클래스 다이어그램](https://github.com/cakememakeme/ProjectCpuRender/assets/73391410/ed219aa8-ef3d-436d-a30c-cc0d993fb919)
+주요 기능은 CpuRenderPipeline.h/cpp, CpuRasterizer.h/cpp 클래스에서 수행됩니다
 
 필요 프로그램&라이브러리
 1. Visual Studio 2022
