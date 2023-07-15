@@ -452,7 +452,10 @@ void CpuRenderer::updateGui()
 
 		ImGui::SliderFloat3("Material ambient", &selectedMesh->Material.Ambient.x, 0.0f, 1.0f);
 
-		//ImGui::SliderFloat3("Material diffuse", &selectedMesh->Material.Diffuse.x, 0.0f, 1.0f);
+		if (!selectedMesh->Material.diffuseTex)
+		{
+			ImGui::SliderFloat3("Material diffuse", &selectedMesh->Material.Diffuse.x, 0.0f, 1.0f);
+		}
 
 		ImGui::SliderFloat3("Material specular", &selectedMesh->Material.Specular.x, 0.0f, 1.0f);
 

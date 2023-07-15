@@ -91,7 +91,7 @@ bool Application::Initialize(const ERenderer type)
     shared_ptr<vector<shared_ptr<Object>>> objects = make_shared<std::vector<std::shared_ptr<Object>>>();
     
     // 메시 설정
-    std::vector<Mesh> meshes = GeometryGenerator::ReadFromFile("./groza/", "Wp_Gun_Groza.fbx");
+    /*std::vector<Mesh> meshes = GeometryGenerator::ReadFromFile("./groza/", "Wp_Gun_Groza.fbx");
     objects->reserve(meshes.size());
     for (const Mesh& mesh : meshes)
     {
@@ -101,9 +101,10 @@ bool Application::Initialize(const ERenderer type)
         newMesh->Transform.translation.z -= 0.5f;
         newMesh->Transform.scale = Vector3(0.7f);
         objects->push_back(newMesh);
-    }
-    // 박스 테스트
-    /*std::shared_ptr<Mesh> mesh = make_shared<Mesh>();
+    }*/
+    
+    //박스 테스트
+    std::shared_ptr<Mesh> mesh = make_shared<Mesh>();
     if (mesh)
     {
         mesh->TempInitBox();
@@ -111,9 +112,8 @@ bool Application::Initialize(const ERenderer type)
         mesh->Transform.rotationX = -3.141592f * 30.0f / 180.0f;
         mesh->Transform.rotationY = 0.0f;
         mesh->Transform.scale = Vector3(1.0f, 1.0f, 1.0f);
-        mesh->Material.Diffuse = Vector3(0.5f);
         objects->push_back(mesh);
-    }*/
+    }
 
     std::shared_ptr<Light> light = make_shared<Light>();
     if (light)

@@ -1,13 +1,18 @@
 #pragma once
 
+#include <Windows.h>
 #include <directxtk/SimpleMath.h>
+#include <DirectXMath.h>
+#include <DirectXPackedVector.h>
 
 #include "Light.h"
 #include "Material.h"
 #include "Mesh.h"
 #include "Texture.h"
 
+using namespace DirectX;
 using namespace DirectX::SimpleMath;
+using namespace DirectX::PackedVector;
 
 struct ShaderConstants
 {
@@ -81,7 +86,9 @@ static Vector3 BlinnPhong(Vector3 lightStrength, Vector3 lightVec, Vector3 norma
     halfway.Normalize();
     Vector3 specular = mat.Specular * pow(std::max(halfway.Dot(normal), 0.0f), mat.Shininess);
 
-    return mat.Ambient + (mat.diffuseTex->SampleLinear(uv) + specular) * lightStrength;
+    Vector3 irradiance = mat.diffuseTex ? (mat.diffuseTex->SampleLinear(uv) + specular) : mat.Diffuse + specular;
+    irradiance *= lightStrength;
+    return mat.Ambient + irradiance;
 }
 
 static Vector3 ComputeDirectionalLight(Light L, Material mat, Vector3 normal, Vector3 toEye, Vector2 uv)
@@ -146,8 +153,7 @@ static VsOutput CpuVertexShader(VsInput vsInput)
     VsOutput vsOutput;
 
     // 마지막에 1.0f 추가
-    Vector4 point = Vector4(vsInput.Position.x, vsInput.Position.y,
-        vsInput.Position.z, 1.0f);
+    Vector4 point = Vector4(vsInput.Position.x, vsInput.Position.y, vsInput.Position.z, 1.0f);
 
     Vector4 worldMat = Vector4::Transform(point, g_constants.worldMat);
     vsOutput.Position = Vector3(worldMat.x, worldMat.y, worldMat.z);
@@ -158,6 +164,10 @@ static VsOutput CpuVertexShader(VsInput vsInput)
     normal.Normalize();
     vsOutput.normal = Vector3(normal.x, normal.y, normal.z);
 
+    // 공간 변환은 월드 스페이스까지만 수행
+    // view space 변환된 좌표계는 직관적으로 인지하기가 쉽지 않아서, 디버깅 하기가 귀찮다
+    // view space -> clip space -> screen space의 변환을 ProjectWorldToRaster()에서 한번에 진행한다
+    // @todo. local -> world -> view 변환을 수행(카메라에 대한 추가적인 기능 구현이 들어가게 된다면)
     return vsOutput;
 }
 
@@ -168,6 +178,15 @@ static Vector4 CpuPixelShader(const PsInput psInput)
     toEye.Normalize();
 
     Vector3 color;
+
+    // 체크패턴, 디버깅용
+    if (!g_constants.material.diffuseTex)
+    {
+        float Size = 0.1f;
+        Vector2 Pos = DirectX::XMVectorFloor(psInput.uv / Size);
+        float PatternMask = (static_cast<int>(Pos.x) + (static_cast<int>(Pos.y) % 2)) % 2;
+        return PatternMask * Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 
     if (g_constants.lightType == 0) 
     {

@@ -22,7 +22,7 @@ bool CpuRenderPipeline::Initialize(const int bufferWidth, const int bufferHeight
 
     const int bufferSize = g_width * g_height;
 
-    // 출력용 버퍼 초기화(@todo. front / back buffer 추가...?)
+    // 출력용 버퍼 초기화(@todo. swapchain 구현...? 아마 안하지 않을까)
     g_displayBuffer = make_shared<vector<Vector4>>();
     g_displayBuffer->resize(bufferSize);
 
@@ -96,9 +96,11 @@ void CpuRenderPipeline::drawMeshes()
             VsInput vsInput;
             vsInput.Position = g_vertexBuffer[i];
             vsInput.normal = g_normalBuffer[i];
+            // 버텍스 transform에 무관한 값. vertex shader 연산에 필요한 경우 넘겨준다
             //vsInput.color = colorBuffer[i];
-            //vsInput.uv = uvBuffer[i];
+            //vsInput.uv = uvBuffer[i]; 
 
+            // vertex shader 단계
             VsOutput vsOutput = CpuVertexShader(vsInput);
 
             g_vertexBuffer[i] = vsOutput.Position;
@@ -107,6 +109,7 @@ void CpuRenderPipeline::drawMeshes()
             //uvBuffer[i] = vsOutput.uv;
         }
 
+        // rasterize 단계
         for (size_t i = 0; i < g_indexBuffer.size(); i += 3)
         {
             CpuRasterizer::DrawIndexedTriangle(i);
