@@ -7,7 +7,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::TempInitBox()
+void Mesh::TestBox()
 {
     vector<Vector3> positions;
     vector<Vector3> colors;
@@ -20,19 +20,19 @@ void Mesh::TempInitBox()
     positions.push_back(Vector3(-1.0f, 1.0f, -1.0f) * scale);
     positions.push_back(Vector3(-1.0f, 1.0f, 1.0f) * scale);
     positions.push_back(Vector3(1.0f, 1.0f, 1.0f) * scale);
-    positions.push_back(Vector3(1.0f, 1.0f, -1.0f) * scale);
+    //positions.push_back(Vector3(1.0f, 1.0f, -1.0f) * scale);
     colors.push_back(Vector3(1.0f, 0.0f, 0.0f));
     colors.push_back(Vector3(1.0f, 0.0f, 0.0f));
     colors.push_back(Vector3(1.0f, 0.0f, 0.0f));
-    colors.push_back(Vector3(1.0f, 0.0f, 0.0f));
+    //colors.push_back(Vector3(1.0f, 0.0f, 0.0f));
     normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
     normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
     normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
-    normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
+    //normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
     texcoords.push_back(Vector2(0.0f, 0.0f));
     texcoords.push_back(Vector2(1.0f, 0.0f));
     texcoords.push_back(Vector2(1.0f, 1.0f));
-    texcoords.push_back(Vector2(0.0f, 1.0f));
+    //texcoords.push_back(Vector2(0.0f, 1.0f));
 
     // ¾Æ·§¸é
     //positions.push_back(Vector3(-1.0f, -1.0f, -1.0f) * scale);
@@ -135,7 +135,7 @@ void Mesh::TempInitBox()
 
     Indices = 
     {
-        0,  1,  2,  0,  2,  3,  // À­¸é
+        0,  1,  2,//  0,  2,  3,  // À­¸é
         //4,  5,  6,  4,  6,  7,  // ¾Æ·§¸é
         //8,  9,  10, 8,  10, 11, // ¾Õ¸é
         //12, 13, 14, 12, 14, 15, // µÞ¸é

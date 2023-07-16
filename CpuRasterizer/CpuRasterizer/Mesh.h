@@ -16,7 +16,7 @@ public:
 public:
 	virtual ~Mesh();
 
-	void TempInitBox();
+	void TestBox();
 
 private:
 

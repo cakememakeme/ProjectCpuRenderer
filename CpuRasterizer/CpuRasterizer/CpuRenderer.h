@@ -67,6 +67,12 @@ private:
 	ID3D11Buffer* indexBuffer;
 	UINT indexCount;
 
+	// ~~디버깅을 위한~~
+	float leftClip = 1.0f;
+	float rightClip = 1.0f;
+	float topClip = 1.0f;
+	float bottomClip = 1.0f;
+
 public:
 	CpuRenderer();
 	virtual ~CpuRenderer();

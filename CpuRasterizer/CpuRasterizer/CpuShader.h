@@ -69,6 +69,10 @@ extern float g_distEyeToScreen;
 extern int g_lightType;
 extern int g_width;
 extern int g_height;
+extern float g_leftClip;
+extern float g_rightClip;
+extern float g_topClip;
+extern float g_bottomClip;
 
 static float Saturate(float x)
 {

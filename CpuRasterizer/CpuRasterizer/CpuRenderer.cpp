@@ -85,6 +85,7 @@ void CpuRenderer::Update()
 
 	cpuPipeline->SetObjects(objects);
 	cpuPipeline->SetLightType(lightType);
+	cpuPipeline->SetClippingPlane(leftClip, rightClip, topClip, bottomClip);
 }
 
 void CpuRenderer::Render()
@@ -440,6 +441,14 @@ void CpuRenderer::updateGui()
 	// gui update
 	if(selectedMesh && selectedLight)
 	{
+		ImGui::SliderFloat("Clipping Left", &leftClip, -1.0f, 1.0f);
+
+		ImGui::SliderFloat("Clipping Right", &rightClip, -1.0f, 1.0f);
+
+		ImGui::SliderFloat("Clipping Top", &topClip, -1.0f, 1.0f);
+
+		ImGui::SliderFloat("Clipping Bottom", &bottomClip, -1.0f, 1.0f);
+
 		ImGui::SliderAngle("Object RotationAboutX", &selectedMesh->Transform.rotationX);
 
 		ImGui::SliderAngle("Object RotationAboutY", &selectedMesh->Transform.rotationY);
