@@ -1,5 +1,7 @@
 # ProjectCpuRender
 
+SimpleRenderer로 작업물 이전
+
 ![CPU 렌더러](https://github.com/cakememakeme/ProjectCpuRender/assets/73391410/52c763f8-e754-4c39-bde1-a86f3487d3c7)
 라이트 컬러를 *직접* 조절했습니다. 
 
@@ -14,7 +16,7 @@
       
       간단하게 넘겨보려고 더 난잡한 코드가 만들어지기도 했구요
       
-      마치 저희 회사의 프로젝트같군요...
+      마치...
 
 
 
