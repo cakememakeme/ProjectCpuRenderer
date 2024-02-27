@@ -1,12 +1,16 @@
 # ProjectCpuRender
 
 SimpleRenderer로 작업물 이전
+
 https://github.com/cakememakeme/SimpleRenderer
+
 추가된 점
 - CpuRenderer 코드 수정
 - 근평면 클리핑 구현 추가
 - d3d11 렌더러 구현
 - 기타 렌더러 구현 예정
+
+------------------
 
 ![CPU 렌더러](https://github.com/cakememakeme/ProjectCpuRender/assets/73391410/52c763f8-e754-4c39-bde1-a86f3487d3c7)
 라이트 컬러를 *직접* 조절했습니다. 
